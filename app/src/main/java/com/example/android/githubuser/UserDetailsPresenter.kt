@@ -3,16 +3,15 @@ package com.example.android.githubuser
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class MainPresenter(val router: Router, val screens: IScreens) :
-    MvpPresenter<MainView>() {
+class UserDetailsPresenter(val router: Router) : MvpPresenter<UserDetailsView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(screens.users())
+        viewState.setUserData()
     }
 
-    fun backClicked() {
+    fun backPressed(): Boolean {
         router.exit()
+        return true
     }
 }
-
