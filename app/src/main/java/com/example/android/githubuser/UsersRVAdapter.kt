@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.githubuser.databinding.ItemUserBinding
 
-class UsersRVAdapter(val presenter: IUserListPresenter) :
+class UsersRVAdapter(private val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersRVAdapter.UsersViewHolder>() {
 
     override fun onCreateViewHolder(

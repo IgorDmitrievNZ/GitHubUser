@@ -6,11 +6,7 @@ import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
 class UsersPresenter(
-    val usersRepository: GithubUsersRepo,
-    val router: Router,
-    val screens: IScreens
-) :
-    MvpPresenter<UsersView>() {
+    private val githubUsersRepository: GithubUsersRepo, private val router: Router, private val screens: IScreens) : MvpPresenter<UsersView>() {
 
     val usersListPresenter = UsersListPresenter()
 
@@ -29,9 +25,20 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        val users = usersRepository.getUsers()
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+        githubUsersRepository.getUsers().subscribe( //rxJava subscribe on data
+            { item ->
+                usersListPresenter.users.add(item)
+                println("onNext: $item")
+
+            },
+            { throwable ->
+                println("onError: ${throwable.message}")
+            },
+            {
+                viewState.updateList()
+                println("onComplete")
+            }
+        )
     }
 
     fun backPressed(): Boolean {

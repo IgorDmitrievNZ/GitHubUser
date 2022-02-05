@@ -3,7 +3,7 @@ package com.example.android.githubuser
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class MainPresenter(val router: Router, val screens: IScreens) :
+class MainPresenter(private val router: Router, private val screens: IScreens) :
     MvpPresenter<MainView>() {
 
     override fun onFirstViewAttach() {
