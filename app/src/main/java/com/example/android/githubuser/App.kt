@@ -1,6 +1,8 @@
 package com.example.android.githubuser
 
 import android.app.Application
+import android.util.Log
+import com.example.android.githubuser.network.NetworkStatus
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 
@@ -11,12 +13,20 @@ class App : Application() {
     val navigatorHolder get() = cicerone.getNavigatorHolder()
     val router get() = cicerone.router
 
+    private val networkStatus by lazy { NetworkStatus(this) }
+
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        _instance = this
+
+        networkStatus.networkStatusSubject.subscribe {
+            Log.d("NetworkStatus", "Is network available: $it")
+        }
     }
 
     companion object {
-        lateinit var instance: App
+        private var _instance: App? = null
+        val instance
+            get() = _instance!!
     }
 }

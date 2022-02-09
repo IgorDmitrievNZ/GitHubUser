@@ -1,9 +1,9 @@
-package com.example.android.githubuser
+package com.example.android.githubuser.ui.details
 
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class UserDetailsPresenter(val router: Router) : MvpPresenter<UserDetailsView>() {
+class UserDetailsPresenter(private val router: Router) : MvpPresenter<UserDetailsView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

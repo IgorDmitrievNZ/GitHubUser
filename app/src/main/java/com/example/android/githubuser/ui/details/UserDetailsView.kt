@@ -1,4 +1,4 @@
-package com.example.android.githubuser
+package com.example.android.githubuser.ui.details
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
