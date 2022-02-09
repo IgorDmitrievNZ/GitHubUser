@@ -1,5 +1,6 @@
-package com.example.android.githubuser
+package com.example.android.githubuser.ui.main
 
+import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 

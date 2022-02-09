@@ -1,10 +1,13 @@
-package com.example.android.githubuser
+package com.example.android.githubuser.ui.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentUserDetailsBinding
+import com.example.android.githubuser.model.GithubUser
+import com.example.android.githubuser.ui.base.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 

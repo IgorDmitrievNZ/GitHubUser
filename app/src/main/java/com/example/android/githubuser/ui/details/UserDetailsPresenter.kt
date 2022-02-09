@@ -1,4 +1,4 @@
-package com.example.android.githubuser
+package com.example.android.githubuser.ui.details
 
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter

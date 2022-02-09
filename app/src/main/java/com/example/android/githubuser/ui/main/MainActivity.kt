@@ -1,7 +1,11 @@
-package com.example.android.githubuser
+package com.example.android.githubuser.ui.main
 
 import android.os.Bundle
+import com.example.android.githubuser.App
+import com.example.android.githubuser.R
 import com.example.android.githubuser.databinding.ActivityMainBinding
+import com.example.android.githubuser.screens.AndroidScreens
+import com.example.android.githubuser.ui.base.BackButtonListener
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
