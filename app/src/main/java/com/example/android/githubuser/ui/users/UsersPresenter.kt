@@ -1,6 +1,5 @@
 package com.example.android.githubuser.ui.users
 
-import com.example.android.githubuser.domain.GithubUsersRepo
 import com.example.android.githubuser.domain.IGithubUsersRepository
 import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router

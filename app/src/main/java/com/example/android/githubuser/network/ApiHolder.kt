@@ -2,6 +2,8 @@ package com.example.android.githubuser.network
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,6 +13,12 @@ object ApiHolder {
 
     val githubApiService by lazy {
         retrofit.create<GithubApiService>()
+    }
+
+    private val okHttpClient by lazy {
+        OkHttpClient().newBuilder()
+            .addInterceptor(HttpLoggingInterceptor())
+            .build()
     }
 
     private val gson by lazy {
@@ -25,6 +33,7 @@ object ApiHolder {
             .baseUrl("https://api.github.com")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .client(okHttpClient)
             .build()
     }
 }
