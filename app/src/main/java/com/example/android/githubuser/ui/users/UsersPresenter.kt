@@ -40,23 +40,6 @@ class UsersPresenter(
     }
 
 
-//            githubUsersRepository.getUsers().subscribe( //rxJava subscribe on data
-//            { item ->
-//                usersListPresenter.users.add(item)
-//                println("onNext: $item")
-//
-//            },
-//            { throwable ->
-//                println("onError: ${throwable.message}")
-//            },
-//            {
-//                viewState.updateList()
-//                println("onComplete")
-//            }
-//        )
-//    }
-
-
     fun backPressed(): Boolean {
         router.exit()
         return true

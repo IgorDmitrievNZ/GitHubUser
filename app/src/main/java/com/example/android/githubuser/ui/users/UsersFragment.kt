@@ -12,6 +12,7 @@ import com.example.android.githubuser.model.GithubUser
 import com.example.android.githubuser.network.ApiHolder
 import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
+import com.example.android.githubuser.ui.base.GlideImageLoader
 import com.example.android.githubuser.ui.users.adapter.UsersRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -25,7 +26,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             AndroidScreens()
         )
     }
-    private val adapter by lazy { UsersRVAdapter { presenter.onUserClicked() } }
+    private val adapter by lazy { UsersRVAdapter(GlideImageLoader()) { presenter.onUserClicked() } }
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
 
@@ -60,7 +61,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun backPressed() = presenter.backPressed()
 
     companion object {
-        fun newInstance() = UsersFragment()
+
+        fun newInstance() =  UsersFragment()
     }
+
 }
 
