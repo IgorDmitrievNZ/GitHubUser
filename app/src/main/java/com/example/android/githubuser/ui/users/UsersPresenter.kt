@@ -1,12 +1,15 @@
 package com.example.android.githubuser.ui.users
 
 import com.example.android.githubuser.domain.GithubUsersRepo
+import com.example.android.githubuser.domain.IGithubUsersRepository
 import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 class UsersPresenter(
-    private val githubUsersRepository: GithubUsersRepo,
+    private val githubUsersRepository: IGithubUsersRepository,
     private val router: Router,
     val screens: IScreens
 ) : MvpPresenter<UsersView>() {
@@ -26,7 +29,15 @@ class UsersPresenter(
 
     private fun loadData() {
         val users = githubUsersRepository.getUsers()
-        viewState.updateList(users)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { users ->
+                    viewState.updateList(users)
+                }, {
+                    viewState.showError(it.message)
+                }
+            )
     }
 
 
