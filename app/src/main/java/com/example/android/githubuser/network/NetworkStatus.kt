@@ -17,20 +17,22 @@ class NetworkStatus(context: Context) {
     init {
         networkStatusSubject.onNext(false)
 
-        connectivityManager.registerNetworkCallback(request, object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                networkStatusSubject.onNext(true)
-            }
+        connectivityManager.registerNetworkCallback(
+            request,
+            object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    networkStatusSubject.onNext(true)
+                }
 
-            override fun onLost(network: Network) {
-                super.onLost(network)
-                networkStatusSubject.onNext(false)
-            }
+                override fun onLost(network: Network) {
+                    super.onLost(network)
+                    networkStatusSubject.onNext(false)
+                }
 
-            override fun onUnavailable() {
-                super.onUnavailable()
-                networkStatusSubject.onNext(false)
-            }
-        })
+                override fun onUnavailable() {
+                    super.onUnavailable()
+                    networkStatusSubject.onNext(false)
+                }
+            })
     }
 }

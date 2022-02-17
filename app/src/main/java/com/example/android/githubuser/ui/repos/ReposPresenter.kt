@@ -1,18 +1,18 @@
-package com.example.android.githubuser.ui.users
+package com.example.android.githubuser.ui.repos
 
-import com.example.android.githubuser.domain.user_repository.IGithubUsersRepository
-import com.example.android.githubuser.model.GithubUserModel
+import com.example.android.githubuser.domain.repo_detail_repository.IGitHubRepositoryDetail
 import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
-class UsersPresenter(
-    private val githubUsersRepository: IGithubUsersRepository,
+class ReposPresenter(
+    private val githubRepositoryDetail: IGitHubRepositoryDetail,
+    private val reposUrl: String,
     private val router: Router,
     private val screens: IScreens
-) : MvpPresenter<UsersView>() {
+) : MvpPresenter<ReposView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -20,12 +20,12 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        val users = githubUsersRepository.getUsers()
+        val repos = githubRepositoryDetail.getReposDetails(reposUrl)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { users ->
-                    viewState.updateList(users)
+                { repos ->
+                    viewState.updateList(repos)
                 }, {
                     viewState.showError(it.message)
                 }
@@ -38,9 +38,9 @@ class UsersPresenter(
         return true
     }
 
-    fun onUserClicked(user: GithubUserModel) {
-             //switch to user screen
-            router.navigateTo(screens.details(user)) //NAVIGATION cicerone
-        }
+    fun onItemClicked() {
+
+        // implement later
+    }
 
 }

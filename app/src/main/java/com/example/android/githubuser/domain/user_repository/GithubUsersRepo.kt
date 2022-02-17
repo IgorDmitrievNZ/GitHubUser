@@ -1,12 +1,12 @@
-package com.example.android.githubuser.domain
+package com.example.android.githubuser.domain.user_repository
 
-import com.example.android.githubuser.model.GithubUser
+import com.example.android.githubuser.model.GithubUserModel
 import com.example.android.githubuser.network.GithubApiService
 import io.reactivex.rxjava3.core.Single
 
-class GithubUsersRepo(private val githubApiService: GithubApiService) : IGithubUsersRepository{
+class GithubUsersRepo(private val githubApiService: GithubApiService) : IGithubUsersRepository {
 
-    override fun getUsers(): Single<List<GithubUser>> {
+    override fun getUsers(): Single<List<GithubUserModel>> {
         return githubApiService.getUsers()
     }
 

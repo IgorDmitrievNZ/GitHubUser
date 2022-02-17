@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentUsersBinding
-import com.example.android.githubuser.domain.GithubUsersRepo
-import com.example.android.githubuser.model.GithubUser
+import com.example.android.githubuser.domain.user_repository.GithubUsersRepo
+import com.example.android.githubuser.model.GithubUserModel
 import com.example.android.githubuser.network.ApiHolder
 import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
@@ -26,7 +26,13 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             AndroidScreens()
         )
     }
-    private val adapter by lazy { UsersRVAdapter(GlideImageLoader()) { presenter.onUserClicked() } }
+    private val adapter by lazy {
+        UsersRVAdapter(GlideImageLoader()) { user ->
+            presenter.onUserClicked(
+                user
+            )
+        }
+    }
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
 
@@ -49,7 +55,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         binding.rvUsers.adapter = adapter
     }
 
-    override fun updateList(users: List<GithubUser>) {
+    override fun updateList(users: List<GithubUserModel>) {
         adapter.submitList(users)
     }
 
@@ -62,7 +68,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     companion object {
 
-        fun newInstance() =  UsersFragment()
+        fun newInstance() = UsersFragment()
     }
 
 }
