@@ -1,7 +1,7 @@
 package com.example.android.githubuser.ui.users
 
 import com.example.android.githubuser.domain.user_repository.IGithubUsersRepository
-import com.example.android.githubuser.model.GithubUserModel
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

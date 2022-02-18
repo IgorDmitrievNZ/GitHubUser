@@ -1,7 +1,7 @@
 package com.example.android.githubuser.network
 
-import com.example.android.githubuser.model.GitHubRepoDetailModel
-import com.example.android.githubuser.model.GithubUserModel
+import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
+import com.example.android.githubuser.domain.model.GithubUserModel
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Url

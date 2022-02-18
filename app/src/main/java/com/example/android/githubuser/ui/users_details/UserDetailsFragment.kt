@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentUserDetailsBinding
-import com.example.android.githubuser.model.GithubUserModel
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
 import com.example.android.githubuser.ui.base.GlideImageLoader

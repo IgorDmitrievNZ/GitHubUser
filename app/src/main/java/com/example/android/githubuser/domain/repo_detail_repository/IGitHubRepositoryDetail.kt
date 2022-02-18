@@ -1,6 +1,6 @@
 package com.example.android.githubuser.domain.repo_detail_repository
 
-import com.example.android.githubuser.model.GitHubRepoDetailModel
+import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
 import io.reactivex.rxjava3.core.Single
 
 interface IGitHubRepositoryDetail {

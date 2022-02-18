@@ -9,7 +9,7 @@ import androidx.core.os.bundleOf
 import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentReposBinding
 import com.example.android.githubuser.domain.repo_detail_repository.GitHubRepositoryDetail
-import com.example.android.githubuser.model.GitHubRepoDetailModel
+import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
 import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
 import com.example.android.githubuser.ui.repos.adapter.ReposAdapter

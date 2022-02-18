@@ -1,6 +1,6 @@
 package com.example.android.githubuser.screens
 
-import com.example.android.githubuser.model.GithubUserModel
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.github.terrakok.cicerone.Screen
 
 interface IScreens {
