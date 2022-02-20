@@ -16,6 +16,10 @@ import moxy.ktx.moxyPresenter
 
 class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonListener {
 
+    private val userModel by lazy {
+        requireArguments().getParcelable<GithubUserModel>(EXTRA_BUNDLE)!!
+    }
+
     private val presenter by moxyPresenter {
         UserDetailsPresenter(
             App.instance.router,
@@ -25,7 +29,6 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonL
     private var _binding: FragmentUserDetailsBinding? = null
     private val binding get() = _binding!!
     private val imageLoader by lazy { GlideImageLoader() }
-    private var reposUrl: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +42,7 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.reposChip.setOnClickListener {
-            presenter.onReposClicked(reposUrl)
+            presenter.onReposClicked(userModel)
         }
     }
 
@@ -54,7 +57,6 @@ class UserDetailsFragment : MvpAppCompatFragment(), UserDetailsView, BackButtonL
             user?.let {
                 binding.userLogin.text = user.login
                 user.avatarUrl?.let { url -> imageLoader.loadInto(url, binding.profilePhoto) }
-                reposUrl = user.reposUrl
             }
         }
     }

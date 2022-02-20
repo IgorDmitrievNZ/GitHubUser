@@ -5,14 +5,16 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkRequest
 import androidx.core.content.getSystemService
-import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class NetworkStatus(context: Context) {
 
     private val connectivityManager = context.getSystemService<ConnectivityManager>()!!
     private val request = NetworkRequest.Builder().build()
 
-    val networkStatusSubject = PublishSubject.create<Boolean>()
+//   private val networkStatusSubject = BehaviorSubject.create<Boolean>()
+    val networkStatusSubject: BehaviorSubject<Boolean> = BehaviorSubject.create<Boolean>()
 
     init {
         networkStatusSubject.onNext(false)
@@ -35,4 +37,8 @@ class NetworkStatus(context: Context) {
                 }
             })
     }
+    fun isOnline() = networkStatusSubject.value ?: false
+
+    fun isOnlineSingle(): Single<Boolean> = networkStatusSubject.first(true)
+
 }

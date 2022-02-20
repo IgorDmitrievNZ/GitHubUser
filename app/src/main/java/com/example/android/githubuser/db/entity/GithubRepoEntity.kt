@@ -17,5 +17,6 @@ import androidx.room.PrimaryKey
 data class GithubRepoEntity(
     @PrimaryKey val id: Long,
     val name: String,
-    val userId: Long
+    val userId: Long,
+    val description: String?
 )

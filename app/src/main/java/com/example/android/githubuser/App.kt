@@ -13,7 +13,7 @@ class App : Application() {
     private val cicerone: Cicerone<Router> by lazy { Cicerone.create() }
     val navigatorHolder get() = cicerone.getNavigatorHolder()
     val router get() = cicerone.router
-    
+
     val database by lazy {
         GithubDatabase.getInstance(this)
     }

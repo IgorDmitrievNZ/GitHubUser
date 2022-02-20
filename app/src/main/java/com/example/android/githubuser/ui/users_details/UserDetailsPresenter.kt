@@ -1,5 +1,6 @@
 package com.example.android.githubuser.ui.users_details
 
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
@@ -20,7 +21,7 @@ class UserDetailsPresenter(
         return true
     }
 
-    fun onReposClicked(reposUrl: String) {
-        router.navigateTo(screens.repos(reposUrl))
+    fun onReposClicked(userModel: GithubUserModel) {
+        router.navigateTo(screens.repos(userModel))
     }
 }
