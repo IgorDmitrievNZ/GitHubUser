@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.githubuser.databinding.ItemRepositoriesBinding
-import com.example.android.githubuser.model.GitHubRepoDetailModel
+import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
 
 class ReposAdapter(private val itemClickListener: (GitHubRepoDetailModel) -> Unit) :
     ListAdapter<GitHubRepoDetailModel, ReposAdapter.ReposViewHolder>(GithubRepoItemCallback) {

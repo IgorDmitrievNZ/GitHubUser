@@ -8,8 +8,11 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentReposBinding
+import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.domain.repo_detail_repository.GitHubRepositoryDetail
-import com.example.android.githubuser.model.GitHubRepoDetailModel
+import com.example.android.githubuser.network.ApiHolder
+import com.example.android.githubuser.network.NetworkStatus
 import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
 import com.example.android.githubuser.ui.repos.adapter.ReposAdapter
@@ -18,10 +21,15 @@ import moxy.ktx.moxyPresenter
 
 class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
 
+    private val userModel by lazy {
+        requireArguments().getParcelable<GithubUserModel>(KEY_USER_MODEL)!!
+    }
+
     private val presenter by moxyPresenter {
         ReposPresenter(
-            GitHubRepositoryDetail(),
-            reposUrl,
+            GitHubRepositoryDetail(ApiHolder.githubApiService,App.instance.database.reposDao, NetworkStatus(requireContext())
+            ),
+            userModel,
             App.instance.router,
             AndroidScreens()
         )
@@ -63,13 +71,11 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
     override fun backPressed() = presenter.backPressed()
 
     companion object {
-        const val REPOS_KEY = "REPOS_KEY"
+        const val KEY_USER_MODEL = "KEY_USER_MODEL"
 
-        fun newInstance(reposUrl: String): ReposFragment {
+        fun newInstance(userModel: GithubUserModel): ReposFragment {
             return ReposFragment().apply {
-                this.reposUrl = reposUrl
-                this.arguments = bundleOf(REPOS_KEY to reposUrl)
-
+                this.arguments = bundleOf(KEY_USER_MODEL to userModel)
             }
         }
     }

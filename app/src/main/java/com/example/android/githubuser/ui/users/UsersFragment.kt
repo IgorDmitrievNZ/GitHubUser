@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentUsersBinding
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.domain.user_repository.GithubUsersRepo
-import com.example.android.githubuser.model.GithubUserModel
 import com.example.android.githubuser.network.ApiHolder
+import com.example.android.githubuser.network.NetworkStatus
 import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
 import com.example.android.githubuser.ui.base.GlideImageLoader
@@ -21,7 +22,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     private val presenter by moxyPresenter {
         UsersPresenter(
-            GithubUsersRepo(ApiHolder.githubApiService),
+            GithubUsersRepo(ApiHolder.githubApiService, App.instance.database.userDao, NetworkStatus(requireContext())),
             App.instance.router,
             AndroidScreens()
         )

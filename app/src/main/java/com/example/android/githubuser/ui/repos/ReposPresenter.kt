@@ -1,5 +1,6 @@
 package com.example.android.githubuser.ui.repos
 
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.domain.repo_detail_repository.IGitHubRepositoryDetail
 import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router
@@ -9,7 +10,7 @@ import moxy.MvpPresenter
 
 class ReposPresenter(
     private val githubRepositoryDetail: IGitHubRepositoryDetail,
-    private val reposUrl: String,
+    private val userModel: GithubUserModel,
     private val router: Router,
     private val screens: IScreens
 ) : MvpPresenter<ReposView>() {
@@ -20,7 +21,7 @@ class ReposPresenter(
     }
 
     private fun loadData() {
-        val repos = githubRepositoryDetail.getReposDetails(reposUrl)
+        val repos = githubRepositoryDetail.getReposDetails(userModel)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

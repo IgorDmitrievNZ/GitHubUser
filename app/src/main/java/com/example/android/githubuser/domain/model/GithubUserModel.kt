@@ -1,4 +1,4 @@
-package com.example.android.githubuser.model
+package com.example.android.githubuser.domain.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -16,6 +16,6 @@ data class GithubUserModel(
     val avatarUrl: String? = null,
 
     @Expose
-    val reposUrl: String
+    val reposUrl: String,
 ) : Parcelable
 

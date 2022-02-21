@@ -1,6 +1,6 @@
 package com.example.android.githubuser.ui.users
 
-import com.example.android.githubuser.model.GithubUserModel
+import com.example.android.githubuser.domain.model.GithubUserModel
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 import moxy.viewstate.strategy.alias.Skip

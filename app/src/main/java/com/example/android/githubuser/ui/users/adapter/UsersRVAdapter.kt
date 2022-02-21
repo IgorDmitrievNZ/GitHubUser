@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.githubuser.databinding.ItemUserBinding
-import com.example.android.githubuser.model.GithubUserModel
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.ui.base.ImageLoader
 
 

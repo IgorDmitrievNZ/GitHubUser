@@ -1,13 +1,35 @@
 package com.example.android.githubuser.domain.repo_detail_repository
 
-import com.example.android.githubuser.model.GitHubRepoDetailModel
-import com.example.android.githubuser.network.ApiHolder.githubApiService
+import com.example.android.githubuser.db.dao.ReposDao
+import com.example.android.githubuser.db.entity.GithubRepoEntity
+import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
+import com.example.android.githubuser.domain.model.GithubUserModel
+import com.example.android.githubuser.domain.model.Owner
+import com.example.android.githubuser.network.GithubApiService
+import com.example.android.githubuser.network.NetworkStatus
 import io.reactivex.rxjava3.core.Single
 
-class GitHubRepositoryDetail() : IGitHubRepositoryDetail {
+class GitHubRepositoryDetail(private val githubApiService: GithubApiService, private val reposDao: ReposDao, private val networkStatus: NetworkStatus) : IGitHubRepositoryDetail {
 
-    override fun getReposDetails(url: String): Single<List<GitHubRepoDetailModel>> {
-        return githubApiService.getRepositories(url)
-    }
+//    override fun getReposDetails(url: String): Single<List<GitHubRepoDetailModel>> {
+//        return githubApiService.getRepositories(url)
+//    }
+
+    override fun getReposDetails(user: GithubUserModel): Single<List<GitHubRepoDetailModel>> = networkStatus.isOnlineSingle()
+        .flatMap { isOnline ->
+            if (isOnline) {
+                githubApiService.getRepositories(user.reposUrl)
+                    .flatMap { repos ->
+                        reposDao.insert(repos.map { GithubRepoEntity(it.id, it.name, it.owner.ownerId, it.description) })
+                        Single.just(repos)
+                    }
+            } else {
+                reposDao.getAll(user.id)
+                    .map { list ->
+                       // list.map { repo -> GitHubRepoDetailModel(repo.name, repo.id, Owner(repo.userId)) }
+                        list.map { repo -> GitHubRepoDetailModel(repo.id,repo.name, repo.description, 0, Owner(repo.userId)) }
+                    }
+            }
+        }
 
 }
