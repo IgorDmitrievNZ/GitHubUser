@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Git Hub User</string>
+    <string name="repositories">Repositories</string>
 </resources>

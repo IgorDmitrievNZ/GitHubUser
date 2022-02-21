@@ -2,6 +2,7 @@ package com.example.android.githubuser
 
 import android.app.Application
 import android.util.Log
+import com.example.android.githubuser.db.GithubDatabase
 import com.example.android.githubuser.network.NetworkStatus
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
@@ -12,6 +13,10 @@ class App : Application() {
     private val cicerone: Cicerone<Router> by lazy { Cicerone.create() }
     val navigatorHolder get() = cicerone.getNavigatorHolder()
     val router get() = cicerone.router
+
+    val database by lazy {
+        GithubDatabase.getInstance(this)
+    }
 
     private val networkStatus by lazy { NetworkStatus(this) }
 

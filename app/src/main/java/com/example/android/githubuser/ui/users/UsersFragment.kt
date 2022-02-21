@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentUsersBinding
-import com.example.android.githubuser.domain.GithubUsersRepo
-import com.example.android.githubuser.model.GithubUser
+import com.example.android.githubuser.domain.model.GithubUserModel
+import com.example.android.githubuser.domain.user_repository.GithubUsersRepo
+import com.example.android.githubuser.network.ApiHolder
+import com.example.android.githubuser.network.NetworkStatus
 import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
+import com.example.android.githubuser.ui.base.GlideImageLoader
 import com.example.android.githubuser.ui.users.adapter.UsersRVAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -17,9 +21,19 @@ import moxy.ktx.moxyPresenter
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     private val presenter by moxyPresenter {
-        UsersPresenter(GithubUsersRepo(), App.instance.router, AndroidScreens())
+        UsersPresenter(
+            GithubUsersRepo(ApiHolder.githubApiService, App.instance.database.userDao, NetworkStatus(requireContext())),
+            App.instance.router,
+            AndroidScreens()
+        )
     }
-    private val adapter by lazy { UsersRVAdapter { presenter.onUserClicked() } }
+    private val adapter by lazy {
+        UsersRVAdapter(GlideImageLoader()) { user ->
+            presenter.onUserClicked(
+                user
+            )
+        }
+    }
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
 
@@ -42,33 +56,21 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         binding.rvUsers.adapter = adapter
     }
 
-//    override fun updateList(users: List<GithubUser>) {
-//        val h = ArrayList<GithubUser>()
-//        users.subscribe( //rxJava subscribe on data
-//            { item ->
-//                h.add(item)
-//                println("onNext: $item")
-//
-//            },
-//            { throwable ->
-//                println("onError: ${throwable.message}")
-//            },
-//            {
-////                viewState.updateList()
-//                println("onComplete")
-//            }
-//        )
-//        adapter.submitList(h)
-//    }
-
-    override fun updateList(users: List<GithubUser>) {
+    override fun updateList(users: List<GithubUserModel>) {
         adapter.submitList(users)
+    }
+
+    override fun showError(message: String?) {
+        Toast.makeText(requireContext(), message.orEmpty(), Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun backPressed() = presenter.backPressed()
 
     companion object {
+
         fun newInstance() = UsersFragment()
     }
+
 }
 
