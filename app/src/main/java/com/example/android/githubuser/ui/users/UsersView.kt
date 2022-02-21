@@ -1,6 +1,6 @@
 package com.example.android.githubuser.ui.users
 
-import com.example.android.githubuser.model.GithubUser
+import com.example.android.githubuser.domain.model.GithubUserModel
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 import moxy.viewstate.strategy.alias.Skip
@@ -9,7 +9,7 @@ import moxy.viewstate.strategy.alias.Skip
 interface UsersView : MvpView {
 
     @AddToEndSingle
-    fun updateList(users: List<GithubUser>)
+    fun updateList(users: List<GithubUserModel>)
 
     @Skip
     fun showError(message: String?)

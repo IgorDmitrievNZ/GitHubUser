@@ -1,11 +1,11 @@
-package com.example.android.githubuser.model
+package com.example.android.githubuser.domain.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GithubUser(
+data class GithubUserModel(
     @Expose
     val id: Long,
 
@@ -13,6 +13,9 @@ data class GithubUser(
     val login: String,
 
     @Expose
-    val avatarUrl: String? = null
+    val avatarUrl: String? = null,
+
+    @Expose
+    val reposUrl: String,
 ) : Parcelable
 

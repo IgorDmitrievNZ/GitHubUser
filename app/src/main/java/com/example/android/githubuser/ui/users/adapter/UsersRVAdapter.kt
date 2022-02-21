@@ -7,15 +7,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.githubuser.databinding.ItemUserBinding
-import com.example.android.githubuser.model.GithubUser
+import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.ui.base.ImageLoader
 
 
 class UsersRVAdapter(
     private val imageLoader: ImageLoader<ImageView>,
-    private val itemClickListener: (GithubUser) -> Unit
-) :
-    ListAdapter<GithubUser, UsersRVAdapter.UsersViewHolder>(GithubUserItemCallback) {
+    private val itemClickListener: (GithubUserModel) -> Unit
+) : ListAdapter<GithubUserModel, UsersRVAdapter.UsersViewHolder>(GithubUserItemCallback) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -37,24 +36,24 @@ class UsersRVAdapter(
     inner class UsersViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun showUser(githubUser: GithubUser) {
-            binding.root.setOnClickListener { itemClickListener(githubUser) }
-            binding.tvLogin.text = githubUser.login
+        fun showUser(githubUserModel: GithubUserModel) {
+            binding.root.setOnClickListener { itemClickListener(githubUserModel) }
+            binding.tvLogin.text = githubUserModel.login
 
-            if (githubUser.avatarUrl != null) {
-                imageLoader.loadInto(githubUser.avatarUrl, binding.userImage)
+            if (githubUserModel.avatarUrl != null) {
+                imageLoader.loadInto(githubUserModel.avatarUrl, binding.userImage)
             }
         }
     }
 }
 
-object GithubUserItemCallback : DiffUtil.ItemCallback<GithubUser>() {
+object GithubUserItemCallback : DiffUtil.ItemCallback<GithubUserModel>() {
 
-    override fun areItemsTheSame(oldItem: GithubUser, newItem: GithubUser): Boolean {
+    override fun areItemsTheSame(oldItem: GithubUserModel, newItem: GithubUserModel): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: GithubUser, newItem: GithubUser): Boolean {
+    override fun areContentsTheSame(oldItem: GithubUserModel, newItem: GithubUserModel): Boolean {
         return oldItem == newItem
     }
 
