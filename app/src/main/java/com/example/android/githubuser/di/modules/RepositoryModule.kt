@@ -10,10 +10,12 @@ import com.example.android.githubuser.network.GithubApiService
 import com.example.android.githubuser.network.NetworkStatus
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class RepositoryModule {
     @Provides
+    @Singleton
     fun usersRepo(
         apiService: GithubApiService,
         usersDao: UserDao,
@@ -23,6 +25,7 @@ class RepositoryModule {
     }
 
     @Provides
+    @Singleton
     fun reposRepo(
         apiService: GithubApiService,
         reposDao: ReposDao,

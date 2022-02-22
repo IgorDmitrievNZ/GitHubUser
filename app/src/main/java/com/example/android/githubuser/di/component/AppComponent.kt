@@ -7,6 +7,7 @@ import com.example.android.githubuser.ui.repos.ReposPresenter
 import com.example.android.githubuser.ui.users.UsersPresenter
 import com.example.android.githubuser.ui.users_details.UserDetailsPresenter
 import dagger.Component
+import javax.inject.Singleton
 
 
 @Component(
@@ -18,6 +19,7 @@ import dagger.Component
         RepositoryModule::class,
     ]
 )
+@Singleton
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
 
