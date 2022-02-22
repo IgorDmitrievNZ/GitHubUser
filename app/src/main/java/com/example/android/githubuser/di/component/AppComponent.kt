@@ -4,6 +4,7 @@ import com.example.android.githubuser.di.modules.*
 import com.example.android.githubuser.ui.main.MainActivity
 import com.example.android.githubuser.ui.main.MainPresenter
 import com.example.android.githubuser.ui.repos.ReposPresenter
+import com.example.android.githubuser.ui.repos.ReposPresenterFactory
 import com.example.android.githubuser.ui.users.UsersPresenter
 import com.example.android.githubuser.ui.users_details.UserDetailsPresenter
 import dagger.Component
@@ -21,6 +22,8 @@ import javax.inject.Singleton
 )
 @Singleton
 interface AppComponent {
+
+    fun provideReposPresenterFactory(): ReposPresenterFactory
 
     fun provideMainPresenter(): MainPresenter
 

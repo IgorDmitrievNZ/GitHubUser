@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentReposBinding
 import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
 import com.example.android.githubuser.domain.model.GithubUserModel
@@ -21,7 +22,8 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        ReposPresenter(userModel)
+       // ReposPresenter(userModel)
+        App.instance.appComponent.provideReposPresenterFactory().presenter(userModel)
     }
 
     private val adapter by lazy { ReposAdapter() { presenter.onItemClicked() } }
