@@ -1,6 +1,5 @@
 package com.example.android.githubuser.ui.users
 
-import com.example.android.githubuser.App
 import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.domain.user_repository.IGithubUsersRepository
 import com.example.android.githubuser.screens.IScreens
@@ -10,20 +9,16 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class UsersPresenter: MvpPresenter<UsersView>() {
+class UsersPresenter @Inject constructor(
+    private val githubUsersRepository: IGithubUsersRepository,
+    private val router: Router,
+    private val screens: IScreens
+) : MvpPresenter<UsersView>() {
 
-    @Inject
-    lateinit var githubUsersRepository: IGithubUsersRepository
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var screens: IScreens
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        App.instance.appComponent.inject(this)
+        //App.instance.appComponent.inject(this)   //not required because we use @Inject constructor
         loadData()
     }
 
@@ -47,8 +42,8 @@ class UsersPresenter: MvpPresenter<UsersView>() {
     }
 
     fun onUserClicked(user: GithubUserModel) {
-             //switch to user screen
-            router.navigateTo(screens.details(user)) //NAVIGATION cicerone
-        }
+        //switch to user screen
+        router.navigateTo(screens.details(user)) //NAVIGATION cicerone
+    }
 
 }

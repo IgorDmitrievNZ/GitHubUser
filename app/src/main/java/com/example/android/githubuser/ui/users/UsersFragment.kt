@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentUsersBinding
 import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.ui.base.BackButtonListener
@@ -16,7 +17,8 @@ import moxy.ktx.moxyPresenter
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     private val presenter by moxyPresenter {
-        UsersPresenter()
+        //UsersPresenter()
+        App.instance.appComponent.provideUsersPresenter()
     }
     private val adapter by lazy {
         UsersRVAdapter(GlideImageLoader()) { user ->

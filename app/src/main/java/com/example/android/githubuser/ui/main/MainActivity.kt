@@ -21,7 +21,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     lateinit var navigatorHolder: NavigatorHolder
 
     private val navigator = AppNavigator(this, R.id.container)
-    private val presenter by moxyPresenter { MainPresenter() }
+    private val presenter by moxyPresenter { App.instance.appComponent.provideMainPresenter() }
 
     private var binding: ActivityMainBinding? = null
 
