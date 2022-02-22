@@ -6,14 +6,11 @@ import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.network.GithubApiService
 import com.example.android.githubuser.network.NetworkStatus
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class GithubUsersRepo(private val githubApiService: GithubApiService,
+class GithubUsersRepo @Inject constructor (private val githubApiService: GithubApiService,
                       private val userDao: UserDao,
                       private val networkStatus: NetworkStatus) : IGithubUsersRepository {
-
-//    override fun getUsers(): Single<List<GithubUserModel>> {
-//        return githubApiService.getUsers()
-//    }
 
     override fun getUsers(): Single<List<GithubUserModel>> = networkStatus.isOnlineSingle()
         .flatMap { isOnline ->
