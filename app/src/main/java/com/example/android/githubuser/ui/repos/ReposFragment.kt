@@ -6,14 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentReposBinding
 import com.example.android.githubuser.domain.model.GitHubRepoDetailModel
 import com.example.android.githubuser.domain.model.GithubUserModel
-import com.example.android.githubuser.domain.repo_detail_repository.GitHubRepositoryDetail
-import com.example.android.githubuser.network.ApiHolder
-import com.example.android.githubuser.network.NetworkStatus
-import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
 import com.example.android.githubuser.ui.repos.adapter.ReposAdapter
 import moxy.MvpAppCompatFragment
@@ -26,19 +21,12 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        ReposPresenter(
-            GitHubRepositoryDetail(ApiHolder.githubApiService,App.instance.database.reposDao, NetworkStatus(requireContext())
-            ),
-            userModel,
-            App.instance.router,
-            AndroidScreens()
-        )
+        ReposPresenter(userModel)
     }
 
     private val adapter by lazy { ReposAdapter() { presenter.onItemClicked() } }
     private var _binding: FragmentReposBinding? = null
     private val binding get() = _binding!!
-    lateinit var reposUrl: String
 
     override fun onCreateView(
         inflater: LayoutInflater,

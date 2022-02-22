@@ -4,16 +4,24 @@ import android.os.Bundle
 import com.example.android.githubuser.App
 import com.example.android.githubuser.R
 import com.example.android.githubuser.databinding.ActivityMainBinding
-import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
     private val navigator = AppNavigator(this, R.id.container)
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
+    private val presenter by moxyPresenter { MainPresenter() }
 
     private var binding: ActivityMainBinding? = null
 
@@ -21,16 +29,18 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        App.instance.appComponent.inject(this)
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        App.instance.navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        App.instance.navigatorHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
     }
 
     override fun onBackPressed() {
