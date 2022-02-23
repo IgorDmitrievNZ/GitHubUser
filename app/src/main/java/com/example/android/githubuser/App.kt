@@ -7,7 +7,8 @@ import com.example.android.githubuser.di.modules.ContextModule
 class App : Application() {
 
     val appComponent by lazy {
-        DaggerAppComponent.builder()
+        DaggerAppComponent
+            .builder()
             .contextModule(ContextModule(this))
             .build()
     }
