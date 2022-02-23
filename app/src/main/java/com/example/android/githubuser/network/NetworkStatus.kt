@@ -13,7 +13,6 @@ class NetworkStatus(context: Context) {
     private val connectivityManager = context.getSystemService<ConnectivityManager>()!!
     private val request = NetworkRequest.Builder().build()
 
-//   private val networkStatusSubject = BehaviorSubject.create<Boolean>()
     val networkStatusSubject: BehaviorSubject<Boolean> = BehaviorSubject.create<Boolean>()
 
     init {

@@ -7,15 +7,18 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(
+class UsersPresenter @Inject constructor(
     private val githubUsersRepository: IGithubUsersRepository,
     private val router: Router,
     private val screens: IScreens
 ) : MvpPresenter<UsersView>() {
 
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        //App.instance.appComponent.inject(this)   //not required because we use @Inject constructor
         loadData()
     }
 
@@ -39,8 +42,8 @@ class UsersPresenter(
     }
 
     fun onUserClicked(user: GithubUserModel) {
-             //switch to user screen
-            router.navigateTo(screens.details(user)) //NAVIGATION cicerone
-        }
+        //switch to user screen
+        router.navigateTo(screens.details(user)) //NAVIGATION cicerone
+    }
 
 }

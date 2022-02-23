@@ -2,17 +2,18 @@ package com.example.android.githubuser.ui.repos
 
 import com.example.android.githubuser.domain.model.GithubUserModel
 import com.example.android.githubuser.domain.repo_detail_repository.IGitHubRepositoryDetail
-import com.example.android.githubuser.screens.IScreens
 import com.github.terrakok.cicerone.Router
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
-class ReposPresenter(
+class ReposPresenter @AssistedInject constructor(
+    @Assisted private val userModel: GithubUserModel,
     private val githubRepositoryDetail: IGitHubRepositoryDetail,
-    private val userModel: GithubUserModel,
     private val router: Router,
-    private val screens: IScreens
 ) : MvpPresenter<ReposView>() {
 
     override fun onFirstViewAttach() {
@@ -44,4 +45,10 @@ class ReposPresenter(
         // implement later
     }
 
+}
+
+@AssistedFactory
+interface ReposPresenterFactory {
+
+    fun presenter(userModel: GithubUserModel): ReposPresenter
 }

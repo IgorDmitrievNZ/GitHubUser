@@ -8,10 +8,6 @@ import android.widget.Toast
 import com.example.android.githubuser.App
 import com.example.android.githubuser.databinding.FragmentUsersBinding
 import com.example.android.githubuser.domain.model.GithubUserModel
-import com.example.android.githubuser.domain.user_repository.GithubUsersRepo
-import com.example.android.githubuser.network.ApiHolder
-import com.example.android.githubuser.network.NetworkStatus
-import com.example.android.githubuser.screens.AndroidScreens
 import com.example.android.githubuser.ui.base.BackButtonListener
 import com.example.android.githubuser.ui.base.GlideImageLoader
 import com.example.android.githubuser.ui.users.adapter.UsersRVAdapter
@@ -21,11 +17,8 @@ import moxy.ktx.moxyPresenter
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     private val presenter by moxyPresenter {
-        UsersPresenter(
-            GithubUsersRepo(ApiHolder.githubApiService, App.instance.database.userDao, NetworkStatus(requireContext())),
-            App.instance.router,
-            AndroidScreens()
-        )
+        //UsersPresenter()
+        App.instance.appComponent.provideUsersPresenter()
     }
     private val adapter by lazy {
         UsersRVAdapter(GlideImageLoader()) { user ->
